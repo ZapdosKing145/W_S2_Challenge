@@ -6,28 +6,110 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
-
+  if (profile.active) {
+    if (!reason) {
+      return "confirm status manually";
     }
+    // Set to inactive and assign reason
+    profile.active = false;
+    profile.reason = reason;
+  } else {
+    // Set to active and remove reason
+    profile.active = true;
+    delete profile.reason;
+  }
+  return profile;
+}
+
+
+    
 
     // 👉 CHALLENGE 2
-    function mineSweeper(grid, x, y) {
+    function mineSweeper(grid, x, y) {  {
+  // Validate coordinates (1-based, must be between 1 and 3)
+  if (x < 1 || x > 3 || y < 1 || y > 3) {
+    return "invalid coordinates";
+  }
 
-    }
+  // Convert to 0-based indexing for array access
+  const cell = grid[y - 1][x - 1];
+
+  if (cell === "🟥") {
+    return "🟥 💀";
+  } else if (cell === "🟦") {
+    return "🟦 🥳";
+  } else {
+    return "invalid coordinates"; // Catch unexpected characters
+  }
+}
+
+}
+
+
+    
 
     // 👉 CHALLENGE 3
-    function booleanize(obj) {
+    function booleanize(obj) { 
+  // Check if any property name exceeds 9 characters
+  for (let key in obj) {
+    if (key.length > 9) {
+      return "shorten all prop names to 9 chars or less";
+    }
+  }
+
+  // Loop through the properties for transformation
+  for (let key in obj) {
+    const value = obj[key];
+
+    if (value === null) {
+      delete obj[key];
+    } else if (value === 0) {
+      obj[key] = false;
+    } else if (value === 1) {
+      obj[key] = true;
+    }
+  }
+
+  return obj;
+
+
 
     }
 
     // 👉 CHALLENGE 4
-    function scrub(text, forbidden) {
+    function scrub(text, forbidden) { 
+  if (!text || forbidden.length === 0) {
+    return text;
+  }
 
+  const words = text.split(" ");
+
+  const scrubbedWords = words.map(word => {
+    if (forbidden.includes(word)) {
+      return "x".repeat(word.length);
     }
+    return word;
+  });
+
+  return scrubbedWords.join(" ");
+}
+
+
+    
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+  // Extract area code, central office code, and line number
+  const areaCode = num.slice(0, 3);
+  const centralOffice = num.slice(3, 6);
+  const lineNumber = num.slice(6, 10);
 
-    }
+  // Format and return
+  return `(${areaCode}) ${centralOffice}-${lineNumber}`;
+}
+
+
+    
 
     // 👉 CHALLENGE 6 (bonus, NOT graded)
     function diceRolls() {
